@@ -214,9 +214,16 @@ function searchNyaa(settings) {
                 createSearch(getQuery(titleJap, titleEng, queryType));
             } else {
                 let cardSelector, cardSpace;
-                domain.includes('livechart.me/franchises/') ? (cardSelector = '.lc-anime') : (cardSelector = '.anime');
-                domain.includes('livechart.me/franchises/') ? (cardSpace = '.lc-anime-card--related-links') : (cardSpace = '.related-links');
-
+                if(domain.includes('franchises') || domain.includes('schedule') )
+                {
+                    cardSelector = '.lc-anime';
+                    cardSpace = '.lc-anime-card--related-links';
+                }
+                else{
+                     cardSelector = '.anime';
+                     cardSpace = '.related-links';
+                }
+                
                 for (const card of document.querySelectorAll(cardSelector)) {
                     cardType = true;
                     titleJap = card.getAttribute('data-romaji');
