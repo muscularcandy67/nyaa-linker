@@ -39,6 +39,10 @@ function searchNyaa(settings) {
         settings.hide_button_setting && (btn.style.display = 'none');
         !cardType && settings.hotkey_key_setting && startHotkeyListener();
     }
+	
+	function createDiv(btnSpace){
+		btnSpace.appendChild(document.createElement('div').classes('h-6','overflow-hidden'));
+	}
 
     function createSearch(query) {
         !btn.title && (btn.textContent = 'Search on Nyaa');
@@ -223,7 +227,33 @@ function searchNyaa(settings) {
                 createBtn(document.querySelector('.lc-poster-col'));
                 btn.classList.add('lc-btn', 'lc-btn-sm', 'lc-btn-outline');
                 createSearch(getQuery(titleJap, titleEng, queryType));
-            } else {
+			}
+			else if (domain.includes('users')) {
+				console.log('User');
+				let cardSelector, cardSpace, cardContainer;
+				cardSelector = '.card';
+				cardSpace = '.h-6.overflow-hidden';
+				cardContainer = '.flex.justify-end.h-6.leading-6.items-center.col-span-2.text-sm.text-base-content/75.pb-2';
+				for (const card of document.querySelectorAll(cardSelector)) {
+                    cardType = true;
+                    titleJap = card.getAttribute('data-user-library-anime-romaji-title');
+                    card.getAttribute('data-user-library-anime-title') ? (titleEng = card.getAttribute('data-user-library-anime-title')) : (titleEng = undefined);
+					
+					if(card.querySelector(cardContainer).querySelector(cardSpace) === null){
+						createDiv(card.querySelector(cardContainer));
+					}
+					createBtn(card.querySelector(cardSpace));
+                    btn.style.background = 'url(https://i.imgur.com/9Fr2BRG.png) center/20px no-repeat';
+                    btn.style.padding = '15px';
+                    btn.style.margin = 0;
+					btn.text='Nyaa';
+                    btn.classList.add('action-button');
+                    btn.title = 'Search on Nyaa';
+                    createSearch(getQuery(titleJap, titleEng, queryType));
+                }
+				
+            } 
+			else {
                 let cardSelector, cardSpace;
                 if(domain.includes('franchises') || domain.includes('schedule') )
                 {
