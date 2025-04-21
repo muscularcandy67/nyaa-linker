@@ -232,17 +232,17 @@ function searchNyaa(settings) {
 				console.log('User');
 				let cardSelector, cardSpace, cardContainer;
 				cardSelector = '.card';
-				cardSpace = '.h-6.overflow-hidden';
-				cardContainer = '.flex.justify-end.h-6.leading-6.items-center.col-span-2.text-sm.text-base-content/75.pb-2';
+				cardSpace = '.grid .lc-small-anime-card-content-grid';
+				cardContainer = '.h-6.overflow-hidden';
 				for (const card of document.querySelectorAll(cardSelector)) {
                     cardType = true;
                     titleJap = card.getAttribute('data-user-library-anime-romaji-title');
                     card.getAttribute('data-user-library-anime-title') ? (titleEng = card.getAttribute('data-user-library-anime-title')) : (titleEng = undefined);
 					
-					if(card.querySelector(cardContainer).querySelector(cardSpace) === null){
+					if(card.querySelector(cardSpace)== null){
 						createDiv(card.querySelector(cardContainer));
 					}
-					createBtn(card.querySelector(cardSpace));
+					createBtn(card.querySelector(cardContainer).querySelector(cardSpace));
                     btn.style.background = 'url(https://i.imgur.com/9Fr2BRG.png) center/20px no-repeat';
                     btn.style.padding = '15px';
                     btn.style.margin = 0;
@@ -254,11 +254,13 @@ function searchNyaa(settings) {
 				
             } 
 			else {
-                let cardSelector, cardSpace;
+                let cardSelector, cardSelector1, cardSpace,cardSpace1;
                 if(domain.includes('franchises') || domain.includes('schedule') )
                 {
                     cardSelector = '.lc-anime';
+                    cardSelector1 = '.lc-anime-card';
                     cardSpace = '.lc-anime-card--related-links';
+                    cardSpace1 = '.relative';
                 }
                 else{
                      cardSelector = '.anime';
